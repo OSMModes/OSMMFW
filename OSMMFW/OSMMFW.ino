@@ -148,6 +148,7 @@ volatile byte PAccelSensitivity;
 volatile int ColorTime[2];
 volatile int BlankTime[2];
 volatile byte PrimeType[2];
+volatile byte ProgrammerRGB[3];
 volatile byte MaxPrimeColors[2];
 volatile boolean TipUp;
 volatile boolean TiltRight;
@@ -374,9 +375,7 @@ volatile  byte CurrentVersion = 231;         // CHANGE THIS NUMBER IF YOU WANT T
 
 // the setup function runs once when you press reset or power the board
 void setup()
-{ // void setup
-	
-	
+{ // void setup1
 	delay(50);
 	boolean WentToSleep = 0;
 	OSMsetup();       // Sets I/O @ setup.ino
@@ -498,7 +497,7 @@ while (Mode == 1 && GLOBALCHANGE )// Mode
 	//                 (  Acc_Select  Axis  AccelCounter  MMASensitivity  //  PrimeA  ColorTimeA  BlankTimeA   E1A   E2A   VPA  //  PrimeB  ColorTimeB  BlankTimeB   E1B   E2B   VPB   //) ;
 	#else 
 	//                 (//-----------------------ACCEL SETTINGS------------//-----------------PRIME A  SETTINGS------------------//-----------------PRIME B  SETTINGS------------------//)
-	osm_MASTER_BUILDER (      2,       2,         30,           80,            1,      5.4,       8.2,       0,    0,    0,        1,       5.4,        8.2,       0,    0,    0     ) ; // was 40
+	osm_MASTER_BUILDER (      0,       2,         30,           80,            0,      5.4,       0,       0,    0,    0,        1,       5.4,        8.2,       0,    0,    0     ) ; // was 40
 	//                 (  Acc_Select  Axis  AccelCounter  MMASensitivity  //  PrimeA  ColorTimeA  BlankTimeA   E1A   E2A   VPA  //  PrimeB  ColorTimeB  BlankTimeB   E1B   E2B   VPB   //) ;
 	#endif
 

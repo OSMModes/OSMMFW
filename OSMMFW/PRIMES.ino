@@ -9,6 +9,11 @@
 void PRIMER(byte PrimeSelector)
 
 {// void PRIMER
+
+  if (PrimeSelector == 0)
+  {
+    PRIME_PROGRAMMER();
+  }
 	
 	if (PrimeSelector == 1)
 	{// if 1
@@ -303,6 +308,45 @@ void PRIMEFIXCOLOR(void)// fix color for color change
 	osmPWMSCCxyz(CCR[VARIATION][color],CCG[VARIATION][color],CCB[VARIATION][color],CCS[VARIATION][color], 60);
 }// void PRIME_STROBE
 
+
+
+int rval = 0;
+int gval = 0;
+int bval = 0;
+
+void PRIME_PROGRAMMER(void)
+{// void PRIME_STROBE
+//  if (color == 0)
+//  {
+//    osmPWMSCCxyz(0,0,0,0,Val1[VARIATION]);
+//  }
+    if (Serial.available()) {
+      byte input = Serial.read();
+      analogWrite(3,rval);
+      analogWrite(6,gval);
+      analogWrite(5,bval);
+
+      if (input > 0 && input < 86) {
+        int rin = map(input, 0, 85, 0, 255);
+        rval = rin;
+      }
+      if (input > 85 && input < 171) {
+        int gin = map(input, 86, 170, 0, 255);
+        gval = gin;
+      }
+      if (input > 170) {
+        int bin = map(input, 171, 255, 0, 255);
+        bval = bin;
+      }
+      osmPWMSCCxyz(rval,gval,bval,0, ColorTime[VARIATION]);
+    } else {
+        osmPWMSCCxyz(rval,gval,bval,0, ColorTime[VARIATION]);
+    }
+    //osmPWMSCCxyz(CCR[VARIATION][color],CCG[VARIATION][color],CCB[VARIATION][color],CCS[VARIATION][color], ColorTime[VARIATION]);
+    //osmPWMSCCxyz(0,0,0, 0,BlankTime[VARIATION]);  
+
+  color++;
+}// void PRIME_STROBE
 
 
 
